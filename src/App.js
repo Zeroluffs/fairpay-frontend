@@ -6,6 +6,7 @@ import TextField from "@mui/material/TextField";
 import Input from "@mui/material/Input";
 import InputAdornment from "@mui/material/InputAdornment";
 import axios from "axios";
+import "./App.css";
 
 const api = axios.create({
   baseURL: `http://localhost:3000/api`,
@@ -17,8 +18,7 @@ function App() {
   const [price, setPrice] = useState(0);
 
   const onSubmit = async () => {
-
-    if((name.length>0) && (price>0) && (product.length>0)){
+    if (name.length > 0 && price > 0 && product.length > 0) {
       const newOrder = {
         name: name,
         product: product,
@@ -30,10 +30,9 @@ function App() {
       setPrice("");
       var response = await api.post("/order/" + selectGroup, newOrder);
       console.log(response);
-    }else{
-      window.alert("Missing  Fields")
+    } else {
+      window.alert("Missing  Fields");
     }
-    
   };
 
   const generateBill = async () => {
@@ -41,9 +40,14 @@ function App() {
     console.log(response.data);
   };
   return (
-    <div>
-      <GroupSelect selectGroup={(group) => setGroup(group)} />
+    <div className="mainContainer">
+      <h2>FairPay</h2>
+      <div className="groupContainer">
+        <GroupSelect selectGroup={(group) => setGroup(group)} />
+      </div>
+
       <Box
+        className="inputContainer"
         component="form"
         sx={{
           "& > :not(style)": { m: 1, width: "25ch" },
@@ -74,12 +78,14 @@ function App() {
           startAdornment={<InputAdornment position="start">$</InputAdornment>}
         />
       </Box>
-      <Button onClick={onSubmit} variant="outlined">
-        Take Order
-      </Button>
-      <Button onClick={generateBill} variant="outlined">
-        Generate Bill
-      </Button>
+      <div className="buttonContainer">
+        <Button className="takeButton" onClick={onSubmit} variant="outlined">
+          Take Order
+        </Button>
+        <Button onClick={generateBill} variant="outlined">
+          Generate Bill
+        </Button>
+      </div>
     </div>
   );
 }
