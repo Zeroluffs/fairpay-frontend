@@ -17,15 +17,23 @@ function App() {
   const [price, setPrice] = useState(0);
 
   const onSubmit = async () => {
-    const newOrder = {
-      name: name,
-      product: product,
-      price: price,
-      groupID: selectGroup,
-    };
 
-    var response = await api.post("/order/" + selectGroup, newOrder);
-    console.log(response);
+    if((name.length>0) && (price>0) && (product.length>0)){
+      const newOrder = {
+        name: name,
+        product: product,
+        price: price,
+        groupID: selectGroup,
+      };
+      setName("");
+      setProduct("");
+      setPrice("");
+      var response = await api.post("/order/" + selectGroup, newOrder);
+      console.log(response);
+    }else{
+      window.alert("Missing  Fields")
+    }
+    
   };
 
   const generateBill = async () => {
@@ -45,6 +53,7 @@ function App() {
       >
         <TextField
           onChange={(event) => setName(event.target.value)}
+          value={name}
           autoFocus={true}
           id="standard-basic"
           label="Name"
@@ -52,6 +61,7 @@ function App() {
         />
         <TextField
           id="standard-basic"
+          value={product}
           label="Product"
           variant="standard"
           onChange={(event) => setProduct(event.target.value)}
@@ -59,6 +69,7 @@ function App() {
         <Input
           type="number"
           id="standard-adornment-amount"
+          value={price}
           onChange={(event) => setPrice(event.target.value)}
           startAdornment={<InputAdornment position="start">$</InputAdornment>}
         />
