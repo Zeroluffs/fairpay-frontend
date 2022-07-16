@@ -18,19 +18,6 @@ const MenuProps = {
   },
 };
 
-// const names = [
-//   "Oliver Hansen",
-//   "Van Henry",
-//   "April Tucker",
-//   "Ralph Hubbard",
-//   "Omar Alexander",
-//   "Carlos Abbott",
-//   "Miriam Wagner",
-//   "Bradley Wilkerson",
-//   "Virginia Andrews",
-//   "Kelly Snyder",
-// ];
-
 function getStyles(name, personName, theme) {
   return {
     fontWeight:
@@ -40,7 +27,9 @@ function getStyles(name, personName, theme) {
   };
 }
 
-export function GroupSelect() {
+export function GroupSelect(props) {
+  const [group, setGroup] = React.useState("62d2f46102e91a62bb7e59ea");
+
   const api = axios.create({
     baseURL: `http://localhost:3000/api`,
   });
@@ -51,10 +40,13 @@ export function GroupSelect() {
     console.log(response);
     return response.data;
   };
-
+  React.useEffect(() => {
+    props.selectGroup(group);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [group]);
   React.useEffect(() => {
     getGroups();
-  },[]);
+  }, []);
 
   const theme = useTheme();
   const [personName, setPersonName] = React.useState([]);
@@ -67,12 +59,13 @@ export function GroupSelect() {
       // On autofill we get a stringified value.
       typeof value === "string" ? value.split(",") : value
     );
+    setGroup(event.target.value);
   };
 
   return (
     <div>
       <FormControl sx={{ m: 1, width: 300 }}>
-        <InputLabel id="demo-multiple-name-label">Name</InputLabel>
+        <InputLabel id="demo-multiple-name-label">Group</InputLabel>
         <Select
           labelId="demo-multiple-name-label"
           id="demo-multiple-name"
@@ -84,7 +77,7 @@ export function GroupSelect() {
           {names.map((name) => (
             <MenuItem
               key={name.id}
-              value={name.name}
+              value={name._id}
               style={getStyles(name, personName, theme)}
             >
               {name.name}
