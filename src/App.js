@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { GroupSelect } from "./components/GroupSelect";
-import { OrderFields } from "./components/OrderFields";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -26,9 +25,13 @@ function App() {
     };
 
     var response = await api.post("/order/" + selectGroup, newOrder);
-    console.log(response)
+    console.log(response);
   };
 
+  const generateBill = async () => {
+    var response = await api.get("/order/bill/" + selectGroup);
+    console.log(response.data);
+  };
   return (
     <div>
       <GroupSelect selectGroup={(group) => setGroup(group)} />
@@ -62,6 +65,9 @@ function App() {
       </Box>
       <Button onClick={onSubmit} variant="outlined">
         Take Order
+      </Button>
+      <Button onClick={generateBill} variant="outlined">
+        Generate Bill
       </Button>
     </div>
   );
