@@ -22,6 +22,10 @@
   flex-direction: column;
 }
 
+.billingText{
+  font-size: 18px;
+}
+
 /* .takeButton {
   padding-right: 24px;
 } */

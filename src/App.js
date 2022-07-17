@@ -94,9 +94,10 @@ function App() {
       </div>
 
       {showBill && (
-        <p>
-          Each person needs to pay ${amountPerPerson} no tip included. And the
-          amount with tip (per Colombian Law of 10%) is ${amountPerPersonTip}
+        <p className="billingText">
+          Each person needs to pay <strong>${amountPerPerson}</strong> no tip
+          included. And the amount with tip (per Colombian Law of 10%) is{" "}
+          <strong>${amountPerPersonTip}</strong>
         </p>
       )}
     </div>
