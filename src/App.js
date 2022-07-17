@@ -32,18 +32,35 @@ function App() {
       setName("");
       setProduct("");
       setPrice("");
-      var response = await api.post("/order/" + selectGroup, newOrder);
-      console.log(response);
+      try {
+        await api.post("/order/" + selectGroup, newOrder);
+      } catch (err) {
+        if (err.response) {
+          console.log(err.response.data);
+        } else if (err.request) {
+        } else {
+          console.log("Error", err.message);
+        }
+      }
     } else {
       window.alert("Missing  Fields");
     }
   };
 
   const generateBill = async () => {
-    var response = await api.get("/order/bill/" + selectGroup);
-    setAmountPerPerson(response.data.amountPerPerson);
-    setAmountPerPersonTip(response.data.amountPerPersonTip);
-    setShowBill(true);
+    try {
+      var response = await api.get("/order/bill/" + selectGroup);
+      setAmountPerPerson(response.data.amountPerPerson);
+      setAmountPerPersonTip(response.data.amountPerPersonTip);
+      setShowBill(true);
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+      } else if (err.request) {
+      } else {
+        console.log("Error", err.message);
+      }
+    }
   };
   return (
     <div className="mainContainer">

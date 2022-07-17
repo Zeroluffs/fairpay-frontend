@@ -34,11 +34,20 @@ export function GroupSelect(props) {
     baseURL: `http://localhost:3000/api`,
   });
   const [names, setNames] = React.useState([]);
+  
   const getGroups = async () => {
-    var response = await api.get("/tgroup");
-    setNames(response.data);
-    console.log(response);
-    return response.data;
+    try {
+      var response = await api.get("/tgroup");
+      setNames(response.data);
+      return response.data;
+    } catch (err) {
+      if (err.response) {
+        console.log(err.response.data);
+      } else if (err.request) {
+      } else {
+        console.log("Error", err.message);
+      }
+    }
   };
   React.useEffect(() => {
     props.selectGroup(group);
