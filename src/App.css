@@ -20,12 +20,17 @@
   display: flex;
   padding-top: 14px;
   flex-direction: column;
+  margin: auto;
 }
 
-.billingText{
+.billingText {
   font-size: 18px;
 }
 
-/* .takeButton {
-  padding-right: 24px;
-} */
+.takeButton {
+  margin-left: 8px;
+}
+
+.generateButton {
+  margin-top: 8px;
+}

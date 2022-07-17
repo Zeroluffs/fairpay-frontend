@@ -103,12 +103,16 @@ function App() {
         />
       </Box>
       <div className="buttonContainer">
-        <Button className="takeButton" onClick={onSubmit} variant="outlined">
-          Take Order
-        </Button>
-        <Button onClick={generateBill} variant="outlined">
-          Generate Bill
-        </Button>
+        <div className="takeButton">
+          <Button onClick={onSubmit} variant="outlined">
+            Take Order
+          </Button>
+        </div>
+        <div className="generateButton">
+          <Button onClick={generateBill} variant="outlined">
+            Generate Bill
+          </Button>
+        </div>
       </div>
 
       {showBill && (
