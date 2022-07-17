@@ -56,6 +56,7 @@ function App() {
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
+        window.alert(err.response.data.message);
       } else if (err.request) {
       } else {
         console.log("Error", err.message);
