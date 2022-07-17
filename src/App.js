@@ -16,8 +16,12 @@ function App() {
   const [name, setName] = useState("");
   const [product, setProduct] = useState("");
   const [price, setPrice] = useState(0);
+  const [amountPerPerson, setAmountPerPerson] = useState(0);
+  const [amountPerPersonTip, setAmountPerPersonTip] = useState(0);
+  const [showBill, setShowBill] = useState(false);
 
   const onSubmit = async () => {
+    setShowBill(false);
     if (name.length > 0 && price > 0 && product.length > 0) {
       const newOrder = {
         name: name,
@@ -37,7 +41,9 @@ function App() {
 
   const generateBill = async () => {
     var response = await api.get("/order/bill/" + selectGroup);
-    console.log(response.data);
+    setAmountPerPerson(response.data.amountPerPerson);
+    setAmountPerPersonTip(response.data.amountPerPersonTip);
+    setShowBill(true);
   };
   return (
     <div className="mainContainer">
@@ -86,6 +92,13 @@ function App() {
           Generate Bill
         </Button>
       </div>
+
+      {showBill && (
+        <p>
+          Each person needs to pay ${amountPerPerson} no tip included. And the
+          amount with tip (per Colombian Law of 10%) is ${amountPerPersonTip}
+        </p>
+      )}
     </div>
   );
 }
