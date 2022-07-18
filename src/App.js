@@ -106,14 +106,6 @@ function App() {
           label="Name"
           variant="standard"
         />
-       
-        <Input
-          type="number"
-          id="standard-adornment-amount"
-          value={price}
-          onChange={(event) => setPrice(event.target.value)}
-          startAdornment={<InputAdornment position="start">$</InputAdornment>}
-        />
       </Box>
       <div className="buttonContainer">
         <div className="takeButton">
