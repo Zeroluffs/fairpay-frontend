@@ -6,8 +6,7 @@ import { ShowBill } from "./components/ShowBill";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import Input from "@mui/material/Input";
-import InputAdornment from "@mui/material/InputAdornment";
+
 import axios from "axios";
 import "./App.css";
 
@@ -19,7 +18,6 @@ function App() {
 
   const [name, setName] = useState("");
   const [product, setProduct] = useState([]);
-  const [price, setPrice] = useState(0);
 
   const [showBill, setShowBill] = useState(false);
   const [orderTaken, setOrderTaken] = useState(false);
@@ -44,7 +42,6 @@ function App() {
       };
       setName("");
       setProduct([]);
-      setPrice("");
       setOrderTaken(true);
       try {
         await api.post("/order/" + selectGroup, newOrder);
@@ -65,7 +62,7 @@ function App() {
   const generateBill = async () => {
     try {
       var response = await api.get("/order/bill/" + selectGroup);
-  
+
       setShowBill(true);
       setBillData(response.data);
     } catch (err) {
@@ -120,9 +117,7 @@ function App() {
         </div>
       </div>
 
-      {showBill && (
-        <ShowBill billData={billData} />
-      )}
+      {showBill && <ShowBill billData={billData} />}
     </div>
   );
 }
