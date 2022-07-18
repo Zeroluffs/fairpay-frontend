@@ -1,5 +1,8 @@
 import { useState } from "react";
 import { GroupSelect } from "./components/GroupSelect";
+import { ProductSelect } from "./components/ProductSelect";
+import { ShowBill } from "./components/ShowBill";
+
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -13,27 +16,40 @@ const api = axios.create({
 });
 function App() {
   const [selectGroup, setGroup] = useState("");
+
   const [name, setName] = useState("");
-  const [product, setProduct] = useState("");
+  const [product, setProduct] = useState([]);
   const [price, setPrice] = useState(0);
   const [amountPerPerson, setAmountPerPerson] = useState(0);
   const [amountPerPersonTip, setAmountPerPersonTip] = useState(0);
   const [showBill, setShowBill] = useState(false);
+  const [orderTaken, setOrderTaken] = useState(false);
+  const [billData, setBillData] = useState([]);
 
   const onSubmit = async () => {
     setShowBill(false);
-    if (name.length > 0 && price > 0 && product.length > 0) {
+    if (name.length > 0 && product.length > 0) {
+      let arrayWithProducts = [];
+      product.forEach((product) => {
+        const object = {
+          productName: product,
+          price: Math.floor(Math.random() * 100) + 1,
+        };
+
+        arrayWithProducts.push(object);
+      });
       const newOrder = {
         name: name,
-        product: product,
-        price: price,
+        products: arrayWithProducts,
         groupID: selectGroup,
       };
       setName("");
-      setProduct("");
+      setProduct([]);
       setPrice("");
+      setOrderTaken(true);
       try {
         await api.post("/order/" + selectGroup, newOrder);
+        setOrderTaken(false);
       } catch (err) {
         if (err.response) {
           console.log(err.response.data);
@@ -42,6 +58,7 @@ function App() {
           console.log("Error", err.message);
         }
       }
+      console.log("product", product);
     } else {
       window.alert("Missing  Fields");
     }
@@ -50,9 +67,11 @@ function App() {
   const generateBill = async () => {
     try {
       var response = await api.get("/order/bill/" + selectGroup);
-      setAmountPerPerson(response.data.amountPerPerson);
-      setAmountPerPersonTip(response.data.amountPerPersonTip);
+      // setAmountPerPerson(response.data.amountPerPerson);
+      // setAmountPerPersonTip(response.data.amountPerPersonTip);
       setShowBill(true);
+      setBillData(response.data);
+      console.log(response, "response");
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -74,11 +93,15 @@ function App() {
         className="inputContainer"
         component="form"
         sx={{
-          "& > :not(style)": { m: 1, width: "25ch" },
+          "& > :not(style)": { width: "25ch" },
         }}
         noValidate
         autoComplete="off"
       >
+        <ProductSelect
+          selectProduct={(product) => setProduct(product)}
+          orderTaken={orderTaken}
+        />
         <TextField
           onChange={(event) => setName(event.target.value)}
           value={name}
@@ -87,13 +110,13 @@ function App() {
           label="Name"
           variant="standard"
         />
-        <TextField
+        {/* <TextField
           id="standard-basic"
           value={product}
           label="Product"
           variant="standard"
           onChange={(event) => setProduct(event.target.value)}
-        />
+        /> */}
         <Input
           type="number"
           id="standard-adornment-amount"
@@ -116,11 +139,12 @@ function App() {
       </div>
 
       {showBill && (
-        <p className="billingText">
-          Each person needs to pay <strong>${amountPerPerson}</strong> no tip
-          included. And the amount with tip (per Colombian Law of 10%) is{" "}
-          <strong>${amountPerPersonTip}</strong>
-        </p>
+        <ShowBill billData={billData} />
+        // <p className="billingText">
+        //   Each person needs to pay <strong>${amountPerPerson}</strong> no tip
+        //   included. And the amount with tip (per Colombian Law of 10%) is{" "}
+        //   <strong>${amountPerPersonTip}</strong>
+        // </p>
       )}
     </div>
   );

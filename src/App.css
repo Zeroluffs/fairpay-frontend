@@ -34,3 +34,23 @@
 .generateButton {
   margin-top: 8px;
 }
+
+.titles {
+  display: flex;
+  flex-direction: row;
+}
+
+.elementName {
+  margin-right: 16px;
+  font-size: 18px;
+}
+
+.elementAmount {
+  font-size: 18px;
+}
+
+.elementAmountTip {
+  margin-left: 16px;
+
+  font-size: 18px;
+}
