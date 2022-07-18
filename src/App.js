@@ -57,7 +57,6 @@ function App() {
           console.log("Error", err.message);
         }
       }
-      console.log("product", product);
     } else {
       window.alert("Missing  Fields");
     }
@@ -66,11 +65,9 @@ function App() {
   const generateBill = async () => {
     try {
       var response = await api.get("/order/bill/" + selectGroup);
-      // setAmountPerPerson(response.data.amountPerPerson);
-      // setAmountPerPersonTip(response.data.amountPerPersonTip);
+  
       setShowBill(true);
       setBillData(response.data);
-      console.log(response, "response");
     } catch (err) {
       if (err.response) {
         console.log(err.response.data);
@@ -109,13 +106,7 @@ function App() {
           label="Name"
           variant="standard"
         />
-        {/* <TextField
-          id="standard-basic"
-          value={product}
-          label="Product"
-          variant="standard"
-          onChange={(event) => setProduct(event.target.value)}
-        /> */}
+       
         <Input
           type="number"
           id="standard-adornment-amount"
@@ -139,11 +130,6 @@ function App() {
 
       {showBill && (
         <ShowBill billData={billData} />
-        // <p className="billingText">
-        //   Each person needs to pay <strong>${amountPerPerson}</strong> no tip
-        //   included. And the amount with tip (per Colombian Law of 10%) is{" "}
-        //   <strong>${amountPerPersonTip}</strong>
-        // </p>
       )}
     </div>
   );
