@@ -80,6 +80,10 @@ function App() {
       <h2>FairPay</h2>
       <div className="groupContainer">
         <GroupSelect selectGroup={(group) => setGroup(group)} />
+        <ProductSelect
+          selectProduct={(product) => setProduct(product)}
+          orderTaken={orderTaken}
+        />
       </div>
 
       <Box
@@ -91,10 +95,6 @@ function App() {
         noValidate
         autoComplete="off"
       >
-        <ProductSelect
-          selectProduct={(product) => setProduct(product)}
-          orderTaken={orderTaken}
-        />
         <TextField
           onChange={(event) => setName(event.target.value)}
           value={name}
