@@ -20,8 +20,7 @@ function App() {
   const [name, setName] = useState("");
   const [product, setProduct] = useState([]);
   const [price, setPrice] = useState(0);
-  const [amountPerPerson, setAmountPerPerson] = useState(0);
-  const [amountPerPersonTip, setAmountPerPersonTip] = useState(0);
+
   const [showBill, setShowBill] = useState(false);
   const [orderTaken, setOrderTaken] = useState(false);
   const [billData, setBillData] = useState([]);

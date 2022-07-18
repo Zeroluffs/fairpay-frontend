@@ -61,6 +61,7 @@ export function ProductSelect(props) {
   }, [props.orderTaken]);
   React.useEffect(() => {
     getProducts();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const theme = useTheme();
