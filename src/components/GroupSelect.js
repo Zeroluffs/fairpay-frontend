@@ -28,10 +28,10 @@ function getStyles(name, personName, theme) {
 }
 
 export function GroupSelect(props) {
-  const [group, setGroup] = React.useState("62d2f46102e91a62bb7e59ea");
+  const [group, setGroup] = React.useState("62d5d56e376a6878f4faec5f");
 
   const api = axios.create({
-    baseURL: `http://localhost:3000/api`,
+    baseURL: `https://fairpay-test.herokuapp.com/api`,
   });
   const [names, setNames] = React.useState([]);
   

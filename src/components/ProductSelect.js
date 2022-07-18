@@ -29,7 +29,7 @@ function getStyles(name, personName, theme) {
 
 export function ProductSelect(props) {
   const api = axios.create({
-    baseURL: `http://localhost:3000/api`,
+    baseURL: `https://fairpay-test.herokuapp.com/api`,
   });
   const [names, setNames] = React.useState([]);
   const [productName, setProductName] = React.useState([]);

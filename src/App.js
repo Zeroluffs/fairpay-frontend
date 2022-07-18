@@ -12,7 +12,7 @@ import axios from "axios";
 import "./App.css";
 
 const api = axios.create({
-  baseURL: `http://localhost:3000/api`,
+  baseURL: `https://fairpay-test.herokuapp.com/api`,
 });
 function App() {
   const [selectGroup, setGroup] = useState("");
