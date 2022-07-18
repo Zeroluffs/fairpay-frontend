@@ -38,7 +38,6 @@ export function ProductSelect(props) {
     try {
       var response = await api.get("/product");
       setNames(response.data);
-      console.log(response.data);
       return response.data;
     } catch (err) {
       if (err.response) {
